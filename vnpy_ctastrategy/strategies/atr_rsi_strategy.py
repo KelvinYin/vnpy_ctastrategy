@@ -9,6 +9,7 @@ from vnpy_ctastrategy import (
     ArrayManager,
 )
 
+from vnpy.trader.constant import Interval
 
 class AtrRsiStrategy(CtaTemplate):
     """"""
@@ -60,7 +61,7 @@ class AtrRsiStrategy(CtaTemplate):
         self.rsi_buy = 50 + self.rsi_entry
         self.rsi_sell = 50 - self.rsi_entry
 
-        self.load_bar(10)
+        self.load_bar(10, interval=Interval.HOUR, callback=self.on_bar, use_database=True)
 
     def on_start(self) -> None:
         """
