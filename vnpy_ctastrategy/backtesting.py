@@ -55,8 +55,8 @@ class BacktestingEngine:
         self.vt_symbol: str = ""
         self.symbol: str = ""
         self.exchange: Exchange
-        self.start: datetime
-        self.end: datetime
+        self.start: datetime = datetime.now()
+        self.end: datetime = datetime.now()
         self.rate: float = 0
         self.slippage: float = 0
         self.size: float = 1
@@ -71,7 +71,7 @@ class BacktestingEngine:
         self.strategy: CtaTemplate
         self.tick: TickData
         self.bar: BarData
-        self.datetime: datetime
+        self.datetime: datetime = datetime.now()
 
         self.interval: Interval
         self.days: int = 0
@@ -300,7 +300,7 @@ class BacktestingEngine:
 
         # Check DataFrame input exterior
         if df is None:
-            if not self.daily_df:
+            if self.daily_df is None or self.daily_df.empty:
                 self.output(_("回测结果为空，无法计算绩效统计指标"))
                 return {}
 
